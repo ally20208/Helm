@@ -1,18 +1,18 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "ithome.fullname" . }}
+  name: {{ .Values.name }}
   labels:
-    {{- include "ithome.labels" . | nindent 4 }}
+    {{- toYaml .Values.labels | nindent 4 }}
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      {{- include "ithome.selectorLabels" . | nindent 6 }}
+      {{- toYaml .Values.labels | nindent 6 }}
   template:
     metadata:
       labels:
-        {{- include "ithome.selectorLabels" . | nindent 8 }}
+        {{- toYaml .Values.labels | nindent 8 }}
     spec:
       affinity:
         {{- toYaml .Values.affinity | nindent 8 }}
