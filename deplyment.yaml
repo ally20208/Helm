@@ -20,23 +20,14 @@ spec:
       - name: {{ .Chart.Name }}
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
         ports:
-        - containerPort: {{ .Values.service.port }}
+        - name: {{ .Values.service.name }}
+          containerPort: {{ .Values.service.port }}
         resources:
           {{- toYaml .Values.resources | nindent 12 }}
         livenessProbe:
-          httpGet:
-            path: /
-            port: 80
-          initialDelaySeconds: 15
-          periodSeconds: 10
-          failureThreshold: 3
+          {{- toYaml .Values.livenessProbe | nindent 12 }}
         readinessProbe:
-          httpGet:
-            path: /
-            port: 80
-          initialDelaySeconds: 5
-          periodSeconds: 10
-          failureThreshold: 3
+          {{- toYaml .Values.readinessProbe | nindent 12 }}
         volumeMounts:
         - name: nginx-conf
           mountPath: /etc/nginx/nginx.conf
