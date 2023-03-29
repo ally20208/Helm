@@ -71,6 +71,22 @@ resources: {}
   # requests:
   #   cpu: 100m
   #   memory: 128Mi
+  
+livenessProbe: 
+  httpGet:
+    path: /
+    port: 8080
+  initialDelaySeconds: 15
+  periodSeconds: 10
+  failureThreshold: 3
+
+readinessProbe:
+  httpGet:
+    path: /
+    port: 8080
+  initialDelaySeconds: 5
+  periodSeconds: 10
+  failureThreshold: 3
 
 autoscaling: []
  # enabled: false
