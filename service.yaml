@@ -3,7 +3,7 @@ kind: Service
 metadata:
   name: {{ include "ithome.fullname" . }}
   labels:
-    {{- include "ithome.labels" . | nindent 4 }}
+    {{- toYaml .Values.labels | nindent 4 }}
 spec:
   type: {{ .Values.service.type }}
   ports:
@@ -12,6 +12,6 @@ spec:
       targetPort: {{ .Values.service.targetPort }}
       protocol: {{ .Values.service.protocol }}
   selector:
-    {{- include "ithome.selectorLabels" . | nindent 4 }}
+    {{- toYaml .Values.labels | nindent 4 }}
   externalIPs:
     {{ .Values.service.externalIPs }}
