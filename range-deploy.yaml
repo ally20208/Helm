@@ -1,0 +1,13 @@
+{{- range $index, $name := .Values.name }}
+  {{- $namespace := (index $.Values.namespace $index) }}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ $name | quote }}
+  namespace: {{ $namespace | quote }}
+data:
+  fall_back: https://test
+  rand_port: 8888,9900
+  svc_type: mem
+{{- end }}
